@@ -9,31 +9,31 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [],
-      text: "",
+      text: ""
     };
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.focusInputIfNeeded(prevState);
+    this.focusInputIfNeeded(prevProps);
   }
 
-  focusInputIfNeeded(prevState) {
-    if (prevState.items.length < this.state.items.length) {
+  focusInputIfNeeded(prevProps) {
+    if (prevProps.items.length < this.props.items.length) {
       const realInput = ReactDOM.findDOMNode(this.refs.input);
       realInput.focus();
     }
   }
 
   render() {
-    const { items, text } = this.state;
+    const { text } = this.state;
+    const { items, onClickAdd, onClickDelete } = this.props;
     const isNeedCount = items.length > 0;
 
     return (
       <div>
         <TaskList
           items={items}
-          onClickDelete={this.onClickDelete.bind(this)}
+          onClickDelete={onClickDelete}
           />
         <div>
           <input
@@ -44,7 +44,7 @@ class App extends Component {
             onKeyUp={this.onKeyUpInput.bind(this)}
             />
           {" "}
-          <input type="submit" value="Add" onClick={this.onClickAddButton.bind(this)} />
+          <input type="submit" value="Add" onClick={onClickAdd} />
           <br />
           {isNeedCount && <p>{items.length}</p>}
         </div>

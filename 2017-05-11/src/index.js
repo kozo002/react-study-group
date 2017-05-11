@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import todoApp from './reducers';
+import TaskAppContainer from "./TaskAppContainer";
+
+const store = createStore(todoApp);
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <TaskAppContainer />
+  </Provider>,
   document.getElementById('root')
 );
